@@ -1,22 +1,15 @@
 package com.catdog.comerce.dto.response;
-import com.catdog.comerce.dto.request.AccesoryDto;
-import com.catdog.comerce.dto.request.FoodDto;
-import com.catdog.comerce.dto.request.HygieneDto;
-import com.catdog.comerce.entity.Accesory;
-import com.catdog.comerce.entity.Food;
-import com.catdog.comerce.entity.Hygiene;
+import com.catdog.comerce.dto.request.ProductoDtoDeserializer;
 import com.catdog.comerce.enums.PetType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 
 @Data

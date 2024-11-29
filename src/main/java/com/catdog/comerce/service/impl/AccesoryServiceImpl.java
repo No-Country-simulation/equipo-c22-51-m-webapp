@@ -4,10 +4,7 @@ import com.catdog.comerce.dto.request.AccesoryDto;
 import com.catdog.comerce.dto.request.UpdateAccesoryDto;
 import com.catdog.comerce.dto.response.ResponseAccesoryDto;
 import com.catdog.comerce.dto.response.ResponseAccesoryDto;
-import com.catdog.comerce.entity.Accesory;
-import com.catdog.comerce.entity.Brand;
-import com.catdog.comerce.entity.Category;
-import com.catdog.comerce.entity.Food;
+import com.catdog.comerce.entity.*;
 import com.catdog.comerce.exception.AlreadyExistsException;
 import com.catdog.comerce.exception.NotFoundException;
 import com.catdog.comerce.repository.*;
@@ -75,7 +72,12 @@ public class AccesoryServiceImpl extends CrudServiceImpl<AccesoryDto, Accesory,L
     @Override
     @Transactional
     public ResponseAccesoryDto updateAccesory(UpdateAccesoryDto updateAccesoryDto, Long accesoryId) {
-        Accesory accesory = accesoryRepo.findById(accesoryId).orElseThrow(()-> new NotFoundException("accesory",accesoryId));
+        Product product = productRepo.findById(accesoryId).orElseThrow(()-> new NotFoundException("accesory",accesoryId));
+        if (!(product instanceof Accesory)) {
+            throw new IllegalArgumentException("product is not accesory");
+        }
+
+        Accesory accesory = (Accesory) product;
         if (updateAccesoryDto.getBrand() != null) {
             Brand brand = brandRepo.findById(updateAccesoryDto.getBrand().getIdBrand())
                     .orElseThrow(()-> new NotFoundException("brand",updateAccesoryDto.getIdProduct()));

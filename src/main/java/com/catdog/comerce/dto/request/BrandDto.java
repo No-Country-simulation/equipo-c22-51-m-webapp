@@ -19,7 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BrandDto implements Serializable {
+public class    BrandDto implements Serializable {
 
     @JsonProperty("id")
     private Long idBrand;

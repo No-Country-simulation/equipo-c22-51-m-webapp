@@ -4,6 +4,7 @@ package com.catdog.comerce.dto.request;
 import com.catdog.comerce.enums.PetType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@JsonDeserialize(using = UpdateProductoDtoDeserializer.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UpdateProductDto {
 

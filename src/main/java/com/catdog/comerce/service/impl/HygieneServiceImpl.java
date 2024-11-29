@@ -69,7 +69,13 @@ public class HygieneServiceImpl extends CrudServiceImpl<HygieneDto, Hygiene,Long
     @Override
     @Transactional
     public ResponseHygieneDto updateHygiene(UpdateHygieneDto updateHygieneDto, Long hygieneId) {
-        Hygiene hygiene = hygieneRepo.findById(hygieneId).orElseThrow(()-> new NotFoundException("hygiene",hygieneId));
+        Product product = productRepo.findById(hygieneId).orElseThrow(()-> new NotFoundException("hygiene",hygieneId));
+        if (!(product instanceof Hygiene)) {
+            throw new IllegalArgumentException("product is not a Hygiene");
+        }
+
+        Hygiene hygiene = (Hygiene) product;
+
         if (updateHygieneDto.getBrand() != null) {
             Brand brand = brandRepo.findById(updateHygieneDto.getBrand().getIdBrand())
                     .orElseThrow(()-> new NotFoundException("brand",updateHygieneDto.getIdProduct()));

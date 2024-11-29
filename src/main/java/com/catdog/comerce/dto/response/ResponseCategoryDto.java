@@ -15,5 +15,6 @@ import lombok.NoArgsConstructor;
 public class ResponseCategoryDto {
     @JsonProperty("id")
     private Long idCategory;
+    @JsonProperty("type")
     private CategoryType type;
 }

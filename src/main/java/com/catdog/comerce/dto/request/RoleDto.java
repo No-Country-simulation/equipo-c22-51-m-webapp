@@ -20,6 +20,6 @@ public class RoleDto implements Serializable {
     private Long idRole;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Type is required")
+    @NotNull(message = "Role is required")
     private RoleType type;
 }

@@ -23,11 +23,7 @@ abstract class CrudServiceImpl<Dto,T,ID> implements ICrudService<Dto,ID> {
 
     @Override
     public List<Dto> findAll() {
-        System.out.println("FOOD-> entity");
         getRepo().findAll().stream().forEach(food-> System.out.println(food));
-        System.out.println("FOOD DTo");
-        mapperUtil.mapList(getRepo().findAll(),getDtoClass()).stream()
-                .forEach(p->System.out.println(p));
         return mapperUtil.mapList(getRepo().findAll(),getDtoClass());
     }
 

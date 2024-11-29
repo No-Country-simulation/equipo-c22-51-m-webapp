@@ -6,6 +6,7 @@ import com.catdog.comerce.dto.response.ResponseFoodDto;
 import com.catdog.comerce.entity.Brand;
 import com.catdog.comerce.entity.Category;
 import com.catdog.comerce.entity.Food;
+import com.catdog.comerce.entity.Product;
 import com.catdog.comerce.exception.AlreadyExistsException;
 import com.catdog.comerce.exception.NotFoundException;
 import com.catdog.comerce.repository.*;
@@ -71,7 +72,13 @@ public class FoodServiceImpl extends CrudServiceImpl<FoodDto, Food,Long> impleme
     @Override
     @Transactional
     public ResponseFoodDto updateFood(UpdateFoodDto updateFoodDto,Long foodId) {
-        Food food = foodRepo.findById(foodId).orElseThrow(()-> new NotFoundException("food",foodId));
+        Product product = productRepo.findById(foodId).orElseThrow(()-> new NotFoundException("food",foodId));
+        if (!(product instanceof Food)){
+            throw new IllegalArgumentException("product is not a food");
+        }
+        Food food = (Food) product;
+
+        System.out.println(food);
         if (updateFoodDto.getBrand() != null) {
             Brand brand = brandRepo.findById(updateFoodDto.getBrand().getIdBrand())
                     .orElseThrow(()-> new NotFoundException("brand",updateFoodDto.getIdProduct()));

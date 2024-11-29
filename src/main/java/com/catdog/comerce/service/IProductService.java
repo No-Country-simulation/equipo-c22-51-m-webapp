@@ -1,10 +1,13 @@
 package com.catdog.comerce.service;
 
 import com.catdog.comerce.dto.request.ProductDto;
+import com.catdog.comerce.dto.request.UpdateProductDto;
+import com.catdog.comerce.dto.response.ResponseProductDto;
 import com.catdog.comerce.entity.Product;
 
 import java.util.List;
 
 public interface IProductService extends ICrudService<ProductDto,Long>{
-    List<Product> findAllProducts();
+    List<ResponseProductDto> findAllProducts();
+    ResponseProductDto updateProduct(UpdateProductDto updateProductDto, Long idProduct);
 }
