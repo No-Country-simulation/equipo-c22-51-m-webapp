@@ -22,5 +22,5 @@ public class SellingProductDto implements Serializable {
     private Integer quantity;
 
     @NotNull(message = "Selling needs a product")
-    private ProductDto product;
+    private ProductSellingDto product;
 }
