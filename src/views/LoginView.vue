@@ -1,56 +1,62 @@
 <script setup></script>
 
 <template>
-  <div class="flex flex-col items-center justify-center h-screen">
-    <div class="flex flex-col items-center justify-center w-full h-[20%] max-w-md">
+  <div class="flex flex-col h-screen">
+    <div class="flex flex-col items-center justify-center h-[20%] w-full">
       <h1 class="text-5xl font-bold">CatDog</h1>
     </div>
-    <div class="flex flex-col items-center justify-center w-[60%] mx-auto h-[100%] max-w-md">
+    <div class="flex flex-col items-center justify-center h-[60%] w-full max-w-md mx-auto">
       <h2 class="text-2xl font-bold mb-4 text-start w-full">Ingresar a CatDog</h2>
-      <div class="flex gap-4 text-lg items-center justify-between w-full mx-auto">
+      <div class="flex gap-4 text-lg justify-center w-full mb-16">
         <button
-          class="flex items-center justify-center rounded-md gap-2 border text-black font-bold w-[300px] mx-4 max-w-md bg-white p-2"
+          class="flex items-center justify-center gap-2 border text-black font-bold rounded-md bg-white p-2 w-[300px] hover:bg-gray-100 hover:shadow-md transition"
         >
           <img src="../assets/img/google.png" alt="Google" class="w-10 h-10" />
-          <span class="ml-2 text-sm">Sign up with Google</span>
+          <span class="text-sm">Sign up with Google</span>
         </button>
         <button
-          class="flex items-center justify-center gap-2 border rounded-md text-black font-bold max-w-md w-[300px] bg-white p-1"
+          class="flex items-center justify-center gap-2 border text-black font-bold rounded-md bg-white p-2 w-[300px] hover:bg-gray-100 hover:shadow-md transition"
         >
-          <img src="../assets/img/gmail.png" alt="Facebook" class="w-10 h-10" />
-          <span class="ml-2 text-sm">Sign up with Email</span>
+          <img src="../assets/img/gmail.png" alt="Email" class="w-10 h-10" />
+          <span class="text-sm">Sign up with Email</span>
         </button>
       </div>
-      <h3 class="text-center text-2xl uppercase font-bold text-gray-600 my-16">- or -</h3>
-      <div class="flex flex-col gap-4 text-lg items-center justify-center w-full">
-        <form
-          class="flex items-center gap-4 border-b-2 text-black font-bold w-full max-w-md bg-white p-2"
-        >
+      <h3 class="text-2xl uppercase font-bold text-gray-600 my-8 text-center">- or -</h3>
+      <div class="flex flex-col gap-4 text-lg w-full">
+        <form class="flex items-center border-b-2 text-black font-bold bg-white p-2">
           <input class="w-full placeholder:text-sm" type="text" placeholder="Email" />
         </form>
-        <form
-          class="flex items-center gap-4 border-b-2 text-black font-bold w-full max-w-md bg-white p-2"
-        >
+        <form class="flex items-center border-b-2 text-black font-bold bg-white p-2">
           <input class="w-full placeholder:text-sm" type="text" placeholder="Password" />
         </form>
         <button
-          class="flex items-center gap-2 border text-black font-bold w-full max-w-md rounded-full bg-white p-1"
+          class="flex items-center justify-center border border-black text-white font-bold bg-black py-2 w-full mt-4 hover:bg-gray-800 hover:shadow-md transition"
         >
-          <img src="../assets/img/login.png" alt="Login" class="w-10 h-10 rounded-full" />
-          <span class="ml-2">Login</span>
+          <span>ingresar</span>
         </button>
         <button
-          class="flex items-center gap-2 border text-black font-bold w-full max-w-md rounded-full bg-white p-1"
+          class="flex items-center justify-center border border-blue-600 text-blue-600 font-bold bg-white py-2 w-full hover:bg-blue-50 hover:shadow-md transition"
         >
-          <img src="../assets/img/register.png" alt="Register" class="w-10 h-10 rounded-full" />
-          <span class="ml-2">Register</span>
+          <span>Registrarse</span>
         </button>
+        <router-link
+          to="/register"
+          class="text-end text-blue-600 font-bold text-sm hover:underline"
+        >
+          <span>¿Olvido su Contraseña??</span>
+        </router-link>
       </div>
     </div>
-    <footer class="flex flex-col items-center justify-center w-full h-[10%]">
-      <p>© 2023 CatDog. Todos los derechos reservados.</p>
+    <footer class="flex items-center justify-center h-[20%] w-full text-sm">
+      <router-link to="/terminosycondiciones" class="text-black hover:underline">
+        CatDog Terms & Conditions
+      </router-link>
     </footer>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+input:focus {
+  outline: none;
+}
+</style>
