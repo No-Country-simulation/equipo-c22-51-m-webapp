@@ -3,37 +3,24 @@
 <template>
   <nav class="bg-[#F7B32B]">
     <div class="flex justify-between items-center w-[95%] mx-auto">
-      <div class="flex font-bold text-xl w-[25%] items-center">
-        <router-link to="/Home">
-          <img src="../assets/img/rb_136741.png" alt="logo" class="w-14 h-14" />
+      <div class="flex font-bold text-xl items-center w-1/4">
+        <router-link to="/Home" class="flex items-center">
+          <img src="../assets/img/rb_136741.png" alt="CatDog logo" class="w-14 h-14" />
+          <h2 class="ml-2">CatDog</h2>
         </router-link>
-        <h2>CatDog</h2>
       </div>
-      <ul class="flex gap-4 text-lg capitalize w-[50%] justify-center">
-        <li>
-          <router-link to="/Home">ofertas</router-link>
-        </li>
-        <li>
-          <router-link to="/About">perros</router-link>
-        </li>
-        <li>
-          <router-link to="/Contact">gatos</router-link>
-        </li>
-        <li>
-          <router-link to="/Contact">marcas</router-link>
-        </li>
-        <li>
-          <router-link to="/Contact">servicios</router-link>
-        </li>
+      <ul class="flex gap-4 text-lg capitalize justify-center w-1/2">
+        <li><router-link to="/Home">ofertas</router-link></li>
+        <li><router-link to="/About">perros</router-link></li>
+        <li><router-link to="/Contact">gatos</router-link></li>
+        <li><router-link to="/Contact">marcas</router-link></li>
+        <li><router-link to="/Contact">servicios</router-link></li>
       </ul>
-      <div
-        class="flex gap-2 text-lg items-center capitalize justify-end w-[25%] rounded-full overflow-hidden"
-      >
+      <div class="flex gap-2 text-lg items-center capitalize justify-end w-1/4">
         <form
-          action=""
-          class="flex gap-4 border text-black font-bold w-[50%] rounded-full bg-white p-1 items-center"
+          class="flex items-center gap-4 border text-black font-bold w-full max-w-md rounded-full bg-white p-1"
         >
-          <img src="../assets/img/buscar.png" alt="logo" class="w-5 h-5 rounded-full ml-2" />
+          <img src="../assets/img/buscar.png" alt="Buscar" class="w-5 h-5 rounded-full ml-2" />
           <input class="w-full placeholder:text-sm" type="text" placeholder="Buscar" />
         </form>
       </div>
