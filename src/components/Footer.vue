@@ -1,5 +1,5 @@
 <template>
-  <footer class="flex flex-col gap-4 bg-white w-[80%] mx-auto justify-between mt-10">
+  <footer class="flex flex-col gap-4 bg-white w-[80%] mx-auto justify-between my-10">
     <div class="flex gap-4 justify-between h-44">
       <div class="lista-footer">
         <h4>Nosotros</h4>
