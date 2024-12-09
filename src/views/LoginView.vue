@@ -2,7 +2,7 @@
 
 <template>
   <div class="flex flex-col h-screen">
-    <div class="flex flex-col items-center justify-center h-[20%] w-full">
+    <div class="flex flex-col items-center justify-end h-[20%] w-full">
       <h1 class="text-5xl font-bold">CatDog</h1>
     </div>
     <div class="flex flex-col items-center justify-center h-[60%] w-full max-w-md mx-auto">
