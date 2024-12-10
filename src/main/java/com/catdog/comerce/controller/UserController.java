@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -36,13 +37,8 @@ public class UserController {
         return new ResponseEntity<>(new GenericResponse<>(200,"success", Arrays.asList(responseUserDto)), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<GenericResponse<ResponseUserDto>> createUser(@RequestBody @Valid UserDto userDto){
-        ResponseUserDto responseUserDto = mapperUtil.map(userService.createUser(userDto), ResponseUserDto.class);
 
-        return new ResponseEntity<>(new GenericResponse<>(201,"success",Arrays.asList(responseUserDto)),HttpStatus.CREATED);
-    }
-
+    @PreAuthorize("permitAll()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.delete(id);
@@ -50,10 +46,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<GenericResponse<ResponseUserDto>> updateUser(@RequestBody @Valid UserDto userDto,@PathVariable Long id){
-        ResponseUserDto responseUserDto = mapperUtil.map(userService.update(userDto,id), ResponseUserDto.class);
-        return new ResponseEntity<>(new GenericResponse<ResponseUserDto>(200,"success",Arrays.asList(responseUserDto)),HttpStatus.OK);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PatchMapping("/{id}")
+    public ResponseEntity<GenericResponse<ResponseUserDto>> updateUserInfomation(@RequestBody @Valid UserDto userDto,@PathVariable Long id){
+        return new ResponseEntity<>(new GenericResponse<>(200,"success",Arrays.asList(userService.updateInformation(userDto,id))),HttpStatus.OK);
     }
 
 

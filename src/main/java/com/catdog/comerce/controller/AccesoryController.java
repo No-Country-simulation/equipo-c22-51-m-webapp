@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class AccesoryController {
     }
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<GenericResponse<ResponseAccesoryDto>> getAllAccesory() {
         List<ResponseAccesoryDto> responseAccesoryDtos = mapperUtil.mapList(accesoryService.findAll(), ResponseAccesoryDto.class);
         return new ResponseEntity<>(new GenericResponse<>(200,"success",responseAccesoryDtos),HttpStatus.OK);

@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -25,18 +26,18 @@ public class User {
     @EqualsAndHashCode.Include
     private Long idUser;
 
-    @NotBlank
+    @Size(min = 5, max = 50)
+    private String address;
+
     @Size(max = 30)
-    @Column(nullable = false)
     private String name;
 
-    @NotBlank
     @Size(max = 30)
-    @Column(name = "last_name",nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank
-    @Column(unique = true,nullable = false)
+
+    @Column(unique = true)
     @Size(min = 8,max = 8)
     private String dni;
 
@@ -46,28 +47,46 @@ public class User {
     private String email;
 
     @NotBlank
+    @Size(min = 4,max = 12)
     @Column(unique = true,nullable = false)
     private String username;
 
     @NotBlank
-    @Size(max = 80)
+    @Size(max = 100)
     @Column(nullable = false)
     private String password;
 
     @Column(updatable = false,nullable = false,name = "creation_date")
     private LocalDateTime creationDate;
 
+    @Column(nullable = false,name = "enable_buyer")
+    private boolean enableBuyer;
+
     @PrePersist
     public void setBeforePersist(){
         creationDate = LocalDateTime.now();
+        purchaseAmount = 0;
+        enableBuyer = false;
     }
 
 
     @PositiveOrZero
     @Column(name = "purchase_amount")
-    private Integer purchaseAmount=0;
+    private Integer purchaseAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role",nullable = false)
-    private Role role;
+    @Column(name = "is_enabled")
+    private boolean isEnabled = true;
+    @Column(name = "account_no_expired")
+    private boolean accountNoExpired = true;
+    @Column(name = "account_no_locked")
+    private boolean accountNoLocked = true;
+    @Column(name = "credential_no_expired")
+    private boolean credentialNoExpired = true;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> role;
 }

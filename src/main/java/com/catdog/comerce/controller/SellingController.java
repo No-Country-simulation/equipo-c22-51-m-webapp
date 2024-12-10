@@ -4,13 +4,12 @@ import com.catdog.comerce.dto.GenericResponse;
 import com.catdog.comerce.dto.request.SellingDto;
 import com.catdog.comerce.dto.request.SellingStateDto;
 import com.catdog.comerce.dto.response.ResponseSelling;
-import com.catdog.comerce.entity.Selling;
 import com.catdog.comerce.service.ISellingService;
-import com.catdog.comerce.utils.MapperUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -22,6 +21,7 @@ import java.util.Arrays;
 public class SellingController {
     private final ISellingService sellingService;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     public ResponseEntity<GenericResponse<ResponseSelling>> createSelling(@RequestBody @Valid SellingDto sellingDto) {
         return new ResponseEntity<>(new GenericResponse<>(201,"succes", Arrays.asList(sellingService.createSelling(sellingDto))), HttpStatus.CREATED);

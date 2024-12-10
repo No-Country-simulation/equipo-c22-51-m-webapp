@@ -19,7 +19,9 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     @JsonProperty("id")
     private Long idUser;
-
+    @NotBlank(message = "address is required")
+    @Size(min = 5, max = 50,message = "Addres required between 5 or 50 characters")
+    private String address;
     @NotBlank(message = "Name is required")
     @Size(max = 30,message = "Name needs 30 characters")
     private String name;
@@ -30,16 +32,4 @@ public class UserDto implements Serializable {
     @NotBlank(message = "Dni is required")
     @Size(min = 8,max = 8,message = "Dno needs only 8 characters")
     private String dni;
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Email is required")
-    private String email;
-    @NotBlank(message = "Username is required")
-    private String username;
-    @NotBlank(message = "Password is required")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(max = 80)
-    private String password;
-
-    private RoleDto role;
-
 }

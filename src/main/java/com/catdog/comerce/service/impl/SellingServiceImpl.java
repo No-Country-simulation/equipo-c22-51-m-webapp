@@ -12,10 +12,7 @@ import com.catdog.comerce.entity.Selling;
 import com.catdog.comerce.entity.SellingProduct;
 import com.catdog.comerce.entity.User;
 import com.catdog.comerce.enums.SellingState;
-import com.catdog.comerce.exception.InvalidUpdateSellingState;
-import com.catdog.comerce.exception.NotFoundException;
-import com.catdog.comerce.exception.NotStockException;
-import com.catdog.comerce.exception.RepeatedException;
+import com.catdog.comerce.exception.*;
 import com.catdog.comerce.repository.*;
 import com.catdog.comerce.service.IEmailService;
 import com.catdog.comerce.service.ISellingService;
@@ -35,6 +32,7 @@ public class SellingServiceImpl extends CrudServiceImpl<SellingDto, Selling,Long
     private final UserRepo userRepo;
     private final IEmailService emailService;
     private final IShippingService shippingService;
+
 
     public SellingServiceImpl(MapperUtil mapperUtil, SellingRepo sellingRepo, ProductRepo productRepo, UserRepo userRepo, IEmailService emailService, IShippingService shippingService) {
         super(mapperUtil);
@@ -74,6 +72,10 @@ public class SellingServiceImpl extends CrudServiceImpl<SellingDto, Selling,Long
     public ResponseSelling createSelling(SellingDto sellingDto) {
 
         User user = userRepo.findById(sellingDto.getUser().getIdUser()).orElseThrow(()->new NotFoundException("user",sellingDto.getUser().getIdUser()));
+
+        if (!user.isEnableBuyer()){
+            throw new NotEnabledBuyerException("User not allowed to buy");
+        }
 
         ResponseUserSellingDto responseUserSellingDto = mapperUtil.map(user,ResponseUserSellingDto.class);
 

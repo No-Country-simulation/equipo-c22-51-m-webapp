@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -22,11 +23,13 @@ public class BrandController {
     private final IBrandService brandService;
 
 
+    @PreAuthorize("permitAll()")
     @GetMapping
     public ResponseEntity<GenericResponse<ResponseBrandDto>> findAllBrands(){
         List<ResponseBrandDto> responseBrandDtos = mapperUtil.mapList(brandService.findAll(), ResponseBrandDto.class);
         return new ResponseEntity<>(new GenericResponse<>(200,"success", responseBrandDtos), HttpStatus.OK);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<GenericResponse<ResponseBrandDto>> findBrand(@PathVariable Long id){

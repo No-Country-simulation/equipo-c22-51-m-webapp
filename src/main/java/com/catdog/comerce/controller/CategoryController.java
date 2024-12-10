@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -22,6 +23,7 @@ public class CategoryController {
     private final ICategoryService categoryService;
 
 
+    @PreAuthorize("permitAll()")
     @GetMapping
     public ResponseEntity<GenericResponse<ResponseCategoryDto>> findAllCategorys(){
         List<ResponseCategoryDto> responseCategoryDtos = mapperUtil.mapList(categoryService.findAll(), ResponseCategoryDto.class);

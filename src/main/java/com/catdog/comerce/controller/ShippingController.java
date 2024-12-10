@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -17,6 +18,8 @@ import java.util.Arrays;
 public class ShippingController {
 
     private final IShippingService shippingService;
+
+    @PreAuthorize("permitAll()")
     @GetMapping
     public ResponseEntity<GenericResponse<ShippingDto>> getShipping() {
         return new ResponseEntity<>(new GenericResponse<>(200,"succes", Arrays.asList(shippingService.getShipping())), HttpStatus.OK);

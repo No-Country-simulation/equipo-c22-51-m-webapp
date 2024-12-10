@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class ResponseUserDto {
     @JsonProperty("id")
     private Long idUser;
+    private String address;
     private String name;
     @JsonProperty("last_name")
     private String lastName;

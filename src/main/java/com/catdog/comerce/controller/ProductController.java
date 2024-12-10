@@ -6,13 +6,13 @@ import com.catdog.comerce.dto.response.ResponseAccesoryDto;
 import com.catdog.comerce.dto.response.ResponseFoodDto;
 import com.catdog.comerce.dto.response.ResponseHygieneDto;
 import com.catdog.comerce.dto.response.ResponseProductDto;
-import com.catdog.comerce.entity.Accesory;
 import com.catdog.comerce.service.IProductService;
 import com.catdog.comerce.utils.MapperUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -25,6 +25,7 @@ public class ProductController {
     private final MapperUtil mapperUtil;
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<GenericResponse<ResponseProductDto>> getProducts() {
         List<ResponseProductDto> responseProductDtoList = productService.findAllProducts();
         GenericResponse<ResponseProductDto> genericResponse = new GenericResponse<>(200,"success",responseProductDtoList);

@@ -49,57 +49,22 @@ public class UserServiceImpl extends CrudServiceImpl<UserDto, User,Long> impleme
         entity.setIdUser(aLong);
     }
 
-    @Transactional
-    public ResponseUserDto createUser(UserDto userDto) {
-        if (userRepo.findByDni(userDto.getDni()).isPresent()){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(),userDto.getDni());
-        }
-
-        if (userRepo.findByEmail(userDto.getEmail()).isPresent()){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(),userDto.getEmail());
-        }
-
-        if (userRepo.findByUsername(userDto.getUsername()).isPresent()){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(), userDto.getUsername());
-        }
-
-        Role role = roleRepo.findByType(RoleType.USER).get();
-        User user = mapperUtil.map(userDto, User.class);
-        user.setRole(role);
-
-
-
-
-        ResponseUserDto responseUserDto = mapperUtil.map(userRepo.save(user), ResponseUserDto.class);
-
-
-        return responseUserDto;
-    }
-
     @Override
-    public UserDto update(UserDto userDto, Long aLong) {
-        Optional<User> optionalUser = userRepo.findByDni(userDto.getDni());
+    public ResponseUserDto updateInformation(UserDto userDto, Long id) {
+        User user = userRepo.findById(id)
+                .orElseThrow(()-> new NotFoundException("user",id));
 
-        if (optionalUser.isPresent() && !optionalUser.get().getIdUser().equals(aLong)){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(),userDto.getDni());
+        if (userRepo.existsByDni(userDto.getDni())){
+            throw new AlreadyExistsException("user","dni");
         }
+        user.setName(userDto.getName());
+        user.setLastName(userDto.getLastName());
+        user.setDni(userDto.getDni());
+        user.setAddress(userDto.getAddress());
 
-        optionalUser = userRepo.findByEmail(userDto.getEmail());
-
-        if (optionalUser.isPresent() && !optionalUser.get().getIdUser().equals(aLong)){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(),userDto.getEmail());
-        }
-
-        optionalUser = userRepo.findByUsername(userDto.getUsername());
-
-        if (optionalUser.isPresent() && !optionalUser.get().getIdUser().equals(aLong)){
-            throw new AlreadyExistsException(getEntityClass().getSimpleName(),userDto.getUsername());
-        }
-
-        User user = mapperUtil.map(userDto, User.class);
-        user.setIdUser(aLong);
-
-        User savedUser = userRepo.save(user);
-        return mapperUtil.map(savedUser, UserDto.class);
+        boolean enabledBuyer = user.getName()!=null && user.getLastName()!=null && user.getDni()!=null && user.getAddress()!=null;
+        user.setEnableBuyer(enabledBuyer);
+        User user1 = userRepo.save(user);
+        return mapperUtil.map(user1,ResponseUserDto.class);
     }
 }
